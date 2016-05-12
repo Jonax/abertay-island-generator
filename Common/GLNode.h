@@ -1,0 +1,58 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//						  Dynamic Terrain Generation Prototype							//
+//					  Written 2007 by Jon Wills (jc@chromaticaura.net)						//
+//				Written for a Win32 environment using the DirectSound API.				//
+//																						//
+//				   Written at the University of Abertay Dundee, Scotland				//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//	NODE CLASS CODE																		//
+//	Used as a means to hold position & texture coordinate data for an OpenGL vertex.	//
+//	Used as a base class for the terrain & the skydome.									//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+#ifndef _GLNODE_H_
+#define _GLNODE_H_
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//	LIBRARY INCLUDE
+//	Refer to include.h for more details.
+//////////////////////////////////////////////////////////////////////////////////////////
+#include "Include.h"
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//	EXTRA INCLUDE FILES
+//////////////////////////////////////////////////////////////////////////////////////////
+#include "GLVertex.h"		// Main OpenGL Vertex class.
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//	CLASS DECLARATIONS
+//	Declarations of the class and its members.  
+//////////////////////////////////////////////////////////////////////////////////////////
+class GLNode
+{
+	public:
+		GLNode();									// Basic constructor to create a node (0, 0, 0).
+		GLNode(GLfloat x, GLfloat y, GLfloat z);	// Constructor to create a node at x, y, z.
+
+		// Functions to set the various data of the node.  
+		void Set(GLfloat x, GLfloat y, GLfloat z);	// Function to set the position of the node.  
+		void SetTex(GLfloat x, GLfloat z);			// Function to set the texture coords of the node.  
+
+		void Draw();								// Function to render the node.  
+
+		float Length();								// Function to return the length of the node.  
+		void Normalise();							// Function to normalise the node.  
+
+		GLNode operator - (GLNode &rhs);			// Function to subtract the node by another node.  
+		GLNode Cross(GLNode& rhs);					// Function to find the cross product with another node.  
+
+	//////////////////////////////////////////////////////////////////////////////////////
+	//	CLASS OBJECTS
+	//////////////////////////////////////////////////////////////////////////////////////
+		GLVertex	Position;		// A 3D vertex for the node's position.  
+		GLVertex2	Texture;		// A 2D vertex for the node's texture coords.  
+};
+
+#endif
